@@ -4,9 +4,11 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+// Debug: Zeige den übergebenen Token (Achtung: Nicht in Produktion ausgeben!)
+console.log("DEBUG: DISCORD_ACCESS_TOKEN =", process.env.DISCORD_ACCESS_TOKEN);
+
 app.get('/discord', async (req, res) => {
     try {
-        // Den Access Token aus der Umgebungsvariable lesen
         const accessToken = process.env.DISCORD_ACCESS_TOKEN;
         if (!accessToken) {
             res.status(500).send("Kein Discord Access Token angegeben.");
@@ -15,6 +17,7 @@ app.get('/discord', async (req, res) => {
 
         const response = await axios.get('https://discord.com/api/v10/users/@me', {
             headers: {
+                // Falls ein Bot-Token verwendet wird, ggf. "Bot " voranstellen
                 Authorization: `${accessToken}`,
             },
         });
@@ -22,8 +25,6 @@ app.get('/discord', async (req, res) => {
         const userData = response.data;
         const banner = userData.banner ? `https://cdn.discordapp.com/banners/${userData.id}/${userData.banner}.png` : null;
         const bio = userData.bio || 'Keine Beschreibung vorhanden';
-
-        // Hier könntest du auch activities auswerten, wenn benötigt
 
         res.json({
             id: userData.id,
