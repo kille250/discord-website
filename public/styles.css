@@ -1,0 +1,131 @@
+/* Allgemeine Einstellungen */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #2f3136;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Profilkarte */
+  .profile-card {
+    background-color: #36393f;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, height 0.5s ease;
+    position: relative;
+    height: 350px; /* Anfangshöhe ohne den Button */
+  }
+  
+  .profile-card:hover {
+    transform: scale(1.05);
+    height: 400px; /* Höhe wird beim Hover erhöht, um Platz für den Button zu schaffen */
+  }
+  
+  /* Neuer Container für den geblurrten Inhalt */
+  .profile-content {
+    transition: filter 0.3s ease;
+  }
+  
+  /* Beim Hover wird der Inhalt geblurred */
+  .profile-card:hover .profile-content {
+    filter: blur(5px);
+  }
+  
+  /* Banner */
+  .banner {
+    height: 150px;
+    background-color: #2f3136;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* Avatar */
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: -60px;
+    border: 4px solid #2f3136;
+    position: relative;
+    z-index: 2;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Profilinformation */
+  .profile-info {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .profile-info h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .profile-info p {
+    font-size: 14px;
+    color: #b9bbbe;
+    margin: 5px 0;
+  }
+  
+  /* Bio */
+  #bio {
+    font-style: italic;
+  }
+  
+  /* Discord Invite Button */
+  .discord-invite {
+    position: absolute;
+    bottom: -50px; /* Der Button startet unterhalb der Karte */
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    opacity: 0; /* Unsichtbar am Anfang */
+    text-decoration: none;
+    background-color: #7289da;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    transition: opacity 0.5s ease, bottom 0.5s ease;
+    z-index: 10; /* Button über dem geblurrten Inhalt */
+  }
+  
+  .profile-card:hover .discord-invite {
+    bottom: 10px; /* Der Button kommt beim Hover nach oben */
+    opacity: 1; /* Button wird sichtbar */
+  }
+  
+  .discord-invite:hover {
+    background-color: #5b6eae;
+  }
+  

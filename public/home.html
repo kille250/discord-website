@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discord Profil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="profile-card">
+      <!-- Neuer Container für alle Inhalte, die geblurred werden sollen -->
+      <div class="profile-content">
+        <div class="banner" id="banner"></div>
+        <div class="avatar">
+          <img id="avatar-img" src="" alt="Avatar">
+        </div>
+        <div class="profile-info">
+          <h1 id="username"></h1>
+          <p id="bio"></p>
+        </div>
+      </div>
+      <!-- Discord Invite Button bleibt außerhalb und wird somit nicht geblurred -->
+      <a href="https://discord.gg/JxUJt7Yw7q" target="_blank" class="discord-invite">Discord Server beitreten</a>
+    </div>
+  </div>
+
+  <script>
+    window.onload = async () => {
+      const response = await fetch('/discord');
+      const userData = await response.json();
+
+      document.getElementById('avatar-img').src = `https://cdn.discordapp.com/avatars/${userData.id}/${userData.avatar}.png`;
+      document.getElementById('username').innerText = `${userData.username}`;
+      document.getElementById('bio').innerText = `Bio: ${userData.bio}`;
+
+      if (userData.banner) {
+        document.getElementById('banner').style.backgroundImage = `url(${userData.banner})`;
+      }
+    };
+  </script>
+</body>
+</html>
