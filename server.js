@@ -6,7 +6,12 @@ const port = 3000;
 
 app.get('/discord', async (req, res) => {
     try {
-        const accessToken = '';
+        // Den Access Token aus der Umgebungsvariable lesen
+        const accessToken = process.env.DISCORD_ACCESS_TOKEN;
+        if (!accessToken) {
+            res.status(500).send("Kein Discord Access Token angegeben.");
+            return;
+        }
 
         const response = await axios.get('https://discord.com/api/v10/users/@me', {
             headers: {
@@ -18,9 +23,7 @@ app.get('/discord', async (req, res) => {
         const banner = userData.banner ? `https://cdn.discordapp.com/banners/${userData.id}/${userData.banner}.png` : null;
         const bio = userData.bio || 'Keine Beschreibung vorhanden';
 
-        const activities = userData.presence && userData.presence.activities.length > 0
-            ? userData.presence.activities[0].name
-            : 'Keine Aktivität';
+        // Hier könntest du auch activities auswerten, wenn benötigt
 
         res.json({
             id: userData.id,
@@ -37,15 +40,14 @@ app.get('/discord', async (req, res) => {
     }
 });
 
-
 // Route für home.html
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'home.html'));  // Hier wird path verwendet
+    res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
 
 // Route für styles.css
 app.get('/styles.css', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'styles.css'));  // Hier wird path verwendet
+    res.sendFile(path.join(__dirname, 'public', 'styles.css'));
 });
 
 app.listen(port, () => {
