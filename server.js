@@ -5,7 +5,7 @@ const app = express();
 const port = 3000;
 
 // Debug: Zeige den übergebenen Token (Achtung: Nicht in Produktion ausgeben!)
-console.log("DEBUG: DISCORD_ACCESS_TOKEN =", process.env.DISCORD_ACCESS_TOKEN);
+console.error("DEBUG: DISCORD_ACCESS_TOKEN =", process.env.DISCORD_ACCESS_TOKEN);
 
 app.get('/discord', async (req, res) => {
     try {
